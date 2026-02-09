@@ -34,7 +34,7 @@
 
         <div class="card">
             <h3>Notifications</h3>
-            <p>Our system works around the clock - providing notifications of every expected goal event determined by our state-of-the-art analytics.</p>
+            <p>Our state of the art system provides notifications 24/7.</p>
         </div>
     </div>
 </div>
