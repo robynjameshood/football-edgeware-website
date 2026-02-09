@@ -29,7 +29,12 @@
 
         <div class="card">
             <h3>Roller</h3>
-            <p>A quick randomiser/roller for match events or bets.</p>
+            <p>Our one-of-a-kind roller system.</p>
+        </div>
+
+        <div class="card">
+            <h3>Notifications</h3>
+            <p>Our system works around the clock - providing notifications of every expected goal event determined by our state-of-the-art analytics.</p>
         </div>
     </div>
 </div>
