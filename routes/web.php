@@ -1,0 +1,53 @@
+<?php
+
+use Illuminate\Support\Facades\Route;
+
+Route::get('/', function () {
+    return view('welcome');
+});
+
+Route::get('/features', function () {
+    return view('features');
+})->name('features');
+
+Route::get('/pricing', function () {
+    return view('pricing');
+})->name('pricing');
+
+// Dynamic sitemap.xml for basic SEO (lists main public pages)
+Route::get('/sitemap.xml', function () {
+    $pages = [
+        ['loc' => url('/'), 'priority' => '1.0'],
+        ['loc' => url('/features'), 'priority' => '0.8'],
+        ['loc' => url('/pricing'), 'priority' => '0.8'],
+    ];
+
+    $lastmod = now()->toAtomString();
+
+    $xml = '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
+    $xml .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\n";
+
+    foreach ($pages as $p) {
+        $xml .= "  <url>\n";
+        $xml .= "    <loc>{$p['loc']}</loc>\n";
+        $xml .= "    <lastmod>{$lastmod}</lastmod>\n";
+        $xml .= "    <changefreq>weekly</changefreq>\n";
+        $xml .= "    <priority>{$p['priority']}</priority>\n";
+        $xml .= "  </url>\n";
+    }
+
+    $xml .= '</urlset>';
+
+    return response($xml, 200)->header('Content-Type', 'application/xml');
+});
+
+// Dynamic robots.txt that points to the sitemap
+Route::get('/robots.txt', function () {
+    $lines = [
+        'User-agent: *',
+        'Disallow:',
+        'Sitemap: ' . url('/sitemap.xml'),
+    ];
+
+    return response(implode("\n", $lines), 200, ['Content-Type' => 'text/plain']);
+});
