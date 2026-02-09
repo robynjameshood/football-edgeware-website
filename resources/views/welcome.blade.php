@@ -3,10 +3,8 @@
 @section('title', 'Welcome — Football Edgeware')
 @section('meta_description', 'Football Edgeware — download the app for live match stats, predictions and analytics. Available on the App Store and Google Play.')
 @section('meta_keywords', 'football, predictions, live stats, app, Football Edgeware')
-
-{{-- Prefer a raster PNG for social previews (add public/social/welcome-card.png) --}}
-@section('og_image', asset('social/welcome-card.png'))
-@section('twitter_image', asset('social/welcome-card.png'))
+@section('og_image', asset('social/welcome-card.svg'))
+@section('twitter_image', asset('social/welcome-card.svg'))
 
 @section('content')
 <div class="home-hero">
@@ -24,8 +22,7 @@
         }
         // Fallback to the welcome social image if no images provided
         if (empty($images)) {
-            // prefer PNG for social image; keep SVG as a fallback if PNG not present
-            $images = [asset('social/welcome-card.png'), asset('social/welcome-card.svg')];
+            $images = [asset('social/welcome-card.svg')];
         }
     @endphp
 

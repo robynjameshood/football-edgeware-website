@@ -14,53 +14,17 @@
     <link rel="canonical" href="@yield('canonical', request()->fullUrl())" />
 
     {{-- Open Graph / Facebook --}}
-    <meta property="og:title" content="@yield('og_title', View::yieldContent('title', config('app.name', 'Football Edgeware')) )" />
+    <meta property="og:title" content="@yield('og_title', View::yieldContent('title', config('app.name', 'Football Edgeware')))" />
     <meta property="og:description" content="@yield('og_description', View::yieldContent('meta_description', 'Football Edgeware — football predictions, live stats and match analytics.'))" />
     <meta property="og:type" content="@yield('og_type', 'website')" />
     <meta property="og:url" content="@yield('og_url', request()->fullUrl())" />
-    {{-- prefer a PNG fallback for social previews; individual pages can override with @section('og_image', asset('path')) --}}
-    <meta property="og:image" content="@yield('og_image', asset('social/welcome-card.png'))" />
-    <meta property="og:image:secure_url" content="@yield('og_image', asset('social/welcome-card.png'))" />
-    <meta property="og:image:type" content="@yield('og_image_type', 'image/png')" />
-    <meta property="og:image:width" content="@yield('og_image_width', '1200')" />
-    <meta property="og:image:height" content="@yield('og_image_height', '630')" />
+    <meta property="og:image" content="@yield('og_image', asset('logo.png'))" />
 
     {{-- Twitter Card --}}
     <meta name="twitter:card" content="@yield('twitter_card', 'summary_large_image')">
-    <meta name="twitter:title" content="@yield('twitter_title', View::yieldContent('title', config('app.name', 'Football Edgeware')) )" />
+    <meta name="twitter:title" content="@yield('twitter_title', View::yieldContent('title', config('app.name', 'Football Edgeware')))" />
     <meta name="twitter:description" content="@yield('twitter_description', View::yieldContent('meta_description', 'Football Edgeware — football predictions, live stats and match analytics.'))" />
-    <meta name="twitter:image" content="@yield('twitter_image', asset('social/welcome-card.png'))" />
-    <link rel="image_src" href="@yield('og_image', asset('social/welcome-card.png'))" />
-
-    {{-- Site icons (favicon and touch icon) --}}
-    <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon" />
-    <link rel="apple-touch-icon" href="{{ asset('social/welcome-card.png') }}">
-    <meta name="msapplication-TileImage" content="{{ asset('social/welcome-card.png') }}">
-
-    {{-- Structured data: Organization and WebSite with logo to help Google show a site image/logo in search results --}}
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "Organization",
-        "url": "{{ url('/') }}",
-        "name": "{{ config('app.name') }}",
-        "logo": "{{ asset('social/welcome-card.png') }}"
-    }
-    </script>
-
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "WebSite",
-        "url": "{{ url('/') }}",
-        "name": "{{ config('app.name') }}",
-        "potentialAction": {
-            "@type": "SearchAction",
-            "target": "{{ url('/?s={search_term_string}') }}",
-            "query-input": "required name=search_term_string"
-        }
-    }
-    </script>
+    <meta name="twitter:image" content="@yield('twitter_image', asset('logo.png'))" />
 
     <style>
         /* Simple, responsive layout + horizontal navbar styles */
