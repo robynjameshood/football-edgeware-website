@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('title', 'Features — Football Edgeware')
-@section('meta_description', 'Features on Football Edgeware: First Half Goals, Second Half Goals, Both Teams To Score and Roller — tools and analytics for match predictions.')
+@section('title', 'Football Prediction Features: Goals, BTTS, Analytics | Football Edgeware')
+@section('meta_description', 'Explore Football Edgeware features: first-half and second-half goal analytics, BTTS insights, and Roller tools to make smarter football predictions.')
 @section('meta_keywords', 'football, features, first half goals, second half goals, both teams to score, roller, predictions, Football Edgeware')
 @section('og_image', asset('social/welcome-card.svg'))
 @section('twitter_image', asset('social/welcome-card.svg'))
