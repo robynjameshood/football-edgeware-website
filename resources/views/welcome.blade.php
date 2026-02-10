@@ -8,7 +8,7 @@
 
 @section('content')
 <div class="home-hero">
-    <h1>Welcome to {{ config('app.name') }}</h1>
+    <h1>Welcome to {{ config('app.name') }} - Football Analytics & Prediction Features</h1>
     <p class="lead">Get the mobile app for quick access to features and live updates.</p>
 
     {{-- Carousel: loads images from public/images/carousel/ --}}
