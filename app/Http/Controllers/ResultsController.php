@@ -47,7 +47,7 @@ class ResultsController extends Controller
                 'value' => $cursor->toDateString(),
                 'label' => $cursor->format('d/m/Y'),
             ];
-            $cursor->subDay();
+            $cursor = $cursor->subDay();
         }
 
         $records = [];
