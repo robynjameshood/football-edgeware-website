@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Http;
 
 class ResultsApiClient
 {
+    private const DATE_FORMAT_PATTERN = '/^\d{4}-\d{2}-\d{2}$/';
+
     /**
      * Fetch result records for a single date from the external Node API.
      */
@@ -15,7 +17,7 @@ class ResultsApiClient
         $baseUrl = rtrim((string) config('services.results_api.base_url'), '/');
         $timeout = (int) config('services.results_api.timeout', 10);
 
-        if ($baseUrl === '') {
+        if ($baseUrl === '' || ! $this->isValidDate($date)) {
             return [];
         }
 
@@ -31,14 +33,24 @@ class ResultsApiClient
 
         $payload = $response->json();
 
-        // Support either a raw array or a wrapped payload with a data key.
-        if (is_array($payload) && array_is_list($payload)) {
-            return $this->normalizeList($payload);
+        if (! is_array($payload)) {
+            return [];
         }
 
         $items = Arr::get($payload, 'data', []);
 
-        return is_array($items) ? $this->normalizeList($items) : [];
+        return is_array($items) && array_is_list($items) ? $this->normalizeList($items) : [];
+    }
+
+    private function isValidDate(string $date): bool
+    {
+        if (! preg_match(self::DATE_FORMAT_PATTERN, $date)) {
+            return false;
+        }
+
+        $parsed = \DateTimeImmutable::createFromFormat('!Y-m-d', $date);
+
+        return $parsed !== false && $parsed->format('Y-m-d') === $date;
     }
 
     /**
