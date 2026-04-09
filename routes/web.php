@@ -5,6 +5,7 @@ use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ResultsController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -18,12 +19,15 @@ Route::get('/pricing', function () {
     return view('pricing');
 })->name('pricing');
 
+Route::get('/results', [ResultsController::class, 'index'])->name('results');
+
 // Dynamic sitemap.xml for basic SEO (lists main public pages)
 Route::get('/sitemap.xml', function () {
     $pages = [
         ['loc' => url('/'), 'priority' => '1.0'],
         ['loc' => url('/features'), 'priority' => '0.8'],
         ['loc' => url('/pricing'), 'priority' => '0.8'],
+        ['loc' => url('/results'), 'priority' => '0.8'],
     ];
 
     $lastmod = now()->toAtomString();

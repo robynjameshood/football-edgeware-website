@@ -35,4 +35,9 @@ return [
         ],
     ],
 
+    'results_api' => [
+        'base_url' => env('RESULTS_API_BASE_URL', 'https://edgeware-server.onrender.com'),
+        'timeout' => (int) env('RESULTS_API_TIMEOUT', 10),
+    ],
+
 ];
