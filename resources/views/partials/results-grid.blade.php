@@ -3,27 +3,50 @@
 @endif
 
 @if (empty($records))
-    <div class="notice">No results were returned for {{ \Illuminate\Support\Carbon::parse($selectedDate)->format('d/m/Y') }}.</div>
+    <div class="notice results-empty-state">
+        <span class="empty-state-kicker">No fixtures returned</span>
+        <strong>{{ \Illuminate\Support\Carbon::parse($selectedDate)->format('d/m/Y') }}</strong>
+        <p>There are no result cards available for this date yet. Try another day or refresh again shortly.</p>
+    </div>
 @else
     <div class="results-grid">
         @foreach ($records as $result)
             <article class="result-card {{ $result['isWinner'] ? 'winner' : 'loser' }}">
-                <header class="result-card-head">
-                    <span class="team">{{ $result['home'] }}</span>
-                    <span class="vs">vs</span>
-                    <span class="team">{{ $result['away'] }}</span>
+                <header class="result-card-topline">
+                    <span class="fixture-chip">Fixture #{{ $result['fixtureId'] ?? 'N/A' }}</span>
+                    <span class="outcome {{ $result['isWinner'] ? 'win' : 'loss' }}">
+                        {{ $result['isWinner'] ? 'Win' : 'Loss' }}
+                    </span>
                 </header>
 
+                <div class="result-card-head">
+                    <div class="team-stack">
+                        <span class="team-label">Home</span>
+                        <span class="team">{{ $result['home'] }}</span>
+                    </div>
+                    <span class="vs-pill">vs</span>
+                    <div class="team-stack align-right">
+                        <span class="team-label">Away</span>
+                        <span class="team">{{ $result['away'] }}</span>
+                    </div>
+                </div>
+
                 <div class="result-card-body">
-                    <p><strong>Current Half:</strong> {{ $result['currentHalf'] }}</p>
-                    <p>
-                        <strong>Outcome:</strong>
-                        <span class="outcome {{ $result['isWinner'] ? 'win' : 'loss' }}">
-                            {{ $result['isWinner'] ? 'Win' : 'Loss' }}
-                        </span>
-                    </p>
+                    <div class="result-stat-row">
+                        <div class="result-stat-card">
+                            <span class="stat-label">Current Half</span>
+                            <strong class="stat-value">{{ $result['currentHalf'] }}</strong>
+                        </div>
+                        <div class="result-stat-card accent">
+                            <span class="stat-label">Match Edge</span>
+                            <strong class="stat-value">{{ is_null($result['percentage']) ? 'N/A' : $result['percentage'].'%' }}</strong>
+                        </div>
+                    </div>
+
                     @if (! is_null($result['percentage']))
-                        <p><strong>Edge %:</strong> {{ $result['percentage'] }}%</p>
+                        <div class="edge-meter" aria-label="Edge percentage {{ $result['percentage'] }} percent">
+                            <div class="edge-meter-bar" style="width: {{ max(0, min(100, (float) $result['percentage'])) }}%;"></div>
+                        </div>
                     @endif
                 </div>
             </article>
