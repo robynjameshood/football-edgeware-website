@@ -12,16 +12,6 @@
     <div class="results-grid">
         @foreach ($records as $result)
             <article class="result-card {{ $result['isWinner'] ? 'winner' : 'loser' }}">
-                <header class="result-card-topline">
-                    <div class="outcome-pill {{ $result['isWinner'] ? 'win' : 'loss' }}">
-                        <span class="outcome-dot" aria-hidden="true"></span>
-                        <span class="outcome-copy">
-                            <strong>{{ $result['isWinner'] ? 'Edge landed' : 'Edge missed' }}</strong>
-                            <span>{{ $result['isWinner'] ? 'Positive result for this fixture' : 'This fixture finished below target' }}</span>
-                        </span>
-                    </div>
-                </header>
-
                 <div class="result-card-head">
                     <div class="team-stack">
                         <span class="team-label">Home</span>
@@ -52,6 +42,13 @@
                         </div>
                     @endif
                 </div>
+
+                <footer class="result-card-footer">
+                    <div class="outcome-pill {{ $result['isWinner'] ? 'win' : 'loss' }}">
+                        <span class="outcome-dot" aria-hidden="true"></span>
+                        <strong>{{ $result['isWinner'] ? 'Edge landed' : 'Edge missed' }}</strong>
+                    </div>
+                </footer>
             </article>
         @endforeach
     </div>

@@ -139,20 +139,12 @@
     .result-card.winner{border-color:rgba(16,185,129,0.26);background:linear-gradient(180deg,rgba(240,253,250,0.96),rgba(255,255,255,0.98))}
     .result-card.loser{border-color:rgba(248,113,113,0.24);background:linear-gradient(180deg,rgba(255,241,242,0.96),rgba(255,255,255,0.98))}
 
-    .result-card-topline{
-        display:flex;
-        align-items:center;
-        justify-content:flex-start;
-        gap:10px;
-        margin-bottom:16px;
-    }
     .outcome-pill{
         display:inline-flex;
         align-items:center;
         gap:12px;
-        min-width:min(100%, 260px);
-        padding:12px 14px;
-        border-radius:18px;
+        padding:10px 14px;
+        border-radius:999px;
         border:1px solid rgba(148,163,184,0.16);
         background:rgba(255,255,255,0.84);
         box-shadow:0 10px 24px rgba(15,23,42,0.06);
@@ -168,9 +160,7 @@
     }
     .outcome-pill.win .outcome-dot{background:#14b8a6;box-shadow:0 0 0 5px rgba(20,184,166,0.12)}
     .outcome-pill.loss .outcome-dot{background:#ef4444;box-shadow:0 0 0 5px rgba(239,68,68,0.12)}
-    .outcome-copy{display:flex;flex-direction:column;gap:2px;min-width:0}
-    .outcome-copy strong{font-size:13px;line-height:1.2;color:var(--results-ink)}
-    .outcome-copy span{font-size:12px;line-height:1.35;color:var(--results-muted)}
+    .outcome-pill strong{font-size:12px;line-height:1.2;color:var(--results-ink);letter-spacing:.08em;text-transform:uppercase}
 
     .result-card-head{
         display:grid;
@@ -237,6 +227,11 @@
         border-radius:999px;
         background:linear-gradient(90deg,#14b8a6,#0f766e);
         box-shadow:0 4px 12px rgba(20,184,166,0.26);
+    }
+    .result-card-footer{
+        margin-top:16px;
+        padding-top:14px;
+        border-top:1px solid rgba(148,163,184,0.14);
     }
 
     .result-skeleton{
