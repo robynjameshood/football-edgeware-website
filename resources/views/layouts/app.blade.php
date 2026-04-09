@@ -37,6 +37,7 @@
         header{
             background:var(--accent);color:#fff;box-shadow:0 1px 0 rgba(0,0,0,0.04);
             position:relative;width:100%;left:0;right:0;margin:0;min-width:100%;
+            z-index:100;
             /* ensure content doesn't hit the notch on iOS */
             padding-left:env(safe-area-inset-left);padding-right:env(safe-area-inset-right);
             -webkit-font-smoothing:antialiased;
@@ -47,7 +48,7 @@
         .navbar{height:var(--nav-height);display:flex;align-items:center;justify-content:space-between}
         .brand{font-weight:700;color:#ffffff;text-decoration:none;font-size:18px;margin-right:16px}
         /* hide mobile nav toggle by default (show it only on small screens) */
-        .nav-toggle{display:none;position:absolute;right:12px;top:50%;transform:translateY(-50%);z-index:60;padding:6px 8px}
+        .nav-toggle{display:none;position:absolute;right:12px;top:50%;transform:translateY(-50%);z-index:130;padding:6px 8px}
         /* Let the nav-links take up remaining horizontal space so links can spread */
         .nav-links{display:flex;gap:12px;align-items:center;flex:1;justify-content:center}
         .nav-links a{display:inline-block;padding:8px 12px;color:rgba(255,255,255,0.95);text-decoration:none;border-radius:6px}
@@ -66,7 +67,8 @@
             .nav-toggle{display:inline-flex;align-items:center;justify-content:center;background:transparent;border:0;color:#fff;font-size:22px;padding:6px 8px;cursor:pointer;right:max(12px, env(safe-area-inset-right));}
             .nav-links{display:none}
             /* when header has .nav-open, show mobile nav as a full-width stacked list */
-            header.nav-open .nav-links{display:flex;flex-direction:column;position:absolute;left:0;right:0;top:var(--nav-height);background:var(--accent);padding:12px 16px;gap:8px;box-shadow:0 8px 20px rgba(2,6,23,0.12)}
+            header{z-index:140}
+            header.nav-open .nav-links{display:flex;flex-direction:column;position:absolute;left:0;right:0;top:var(--nav-height);z-index:120;background:var(--accent);padding:12px 16px;gap:8px;box-shadow:0 8px 20px rgba(2,6,23,0.12)}
             header.nav-open .nav-links a{display:block;padding:10px 12px;border-radius:8px;background:transparent;text-align:center}
             /* ensure brand remains visible and container padding reduced */
             .container{padding:0 12px}
