@@ -1,3 +1,25 @@
+<section class="day-summary" aria-label="Daily results summary">
+    <div class="day-summary-primary">
+        <span class="day-summary-label">Final day percentage</span>
+        <strong class="day-summary-rate">{{ number_format((float) ($summary['winRate'] ?? 0), 1) }}%</strong>
+        <span class="day-summary-caption">Based on {{ $summary['total'] ?? 0 }} tracked fixtures for {{ \Illuminate\Support\Carbon::parse($selectedDate)->format('d/m/Y') }}</span>
+    </div>
+    <div class="day-summary-stats">
+        <div class="day-summary-stat success">
+            <span class="summary-stat-label">Wins</span>
+            <strong class="summary-stat-value">{{ $summary['wins'] ?? 0 }}</strong>
+        </div>
+        <div class="day-summary-stat danger">
+            <span class="summary-stat-label">Losses</span>
+            <strong class="summary-stat-value">{{ $summary['losses'] ?? 0 }}</strong>
+        </div>
+        <div class="day-summary-stat neutral">
+            <span class="summary-stat-label">Fixtures</span>
+            <strong class="summary-stat-value">{{ $summary['total'] ?? 0 }}</strong>
+        </div>
+    </div>
+</section>
+
 @if ($fetchError)
     <div class="notice error">{{ $fetchError }}</div>
 @endif
@@ -11,6 +33,13 @@
 @else
     <div class="results-grid">
         @foreach ($records as $result)
+            @php
+                $halfLabel = match ($result['currentHalf'] ?? null) {
+                    '1H' => 'First Half Goal',
+                    '2H' => 'Second Half Goal',
+                    default => 'Current Half',
+                };
+            @endphp
             <article class="result-card {{ $result['isWinner'] ? 'winner' : 'loser' }}">
                 <div class="result-card-head">
                     <div class="team-stack">
@@ -27,7 +56,7 @@
                 <div class="result-card-body">
                     <div class="result-stat-row">
                         <div class="result-stat-card">
-                            <span class="stat-label">Current Half</span>
+                            <span class="stat-label">{{ $halfLabel }}</span>
                             <strong class="stat-value">{{ $result['currentHalf'] }}</strong>
                         </div>
                         <div class="result-stat-card accent">

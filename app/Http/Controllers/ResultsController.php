@@ -64,6 +64,7 @@ class ResultsController extends Controller
             'availableDates' => $availableDates,
             'selectedDate' => $selectedDate,
             'records' => $records,
+            'summary' => $this->buildSummary($records),
             'fetchError' => $fetchError,
         ];
 
@@ -75,5 +76,35 @@ class ResultsController extends Controller
         }
 
         return view('results', $payload);
+    }
+
+    private function buildSummary(array $records): array
+    {
+        $wins = 0;
+        $losses = 0;
+
+        foreach ($records as $record) {
+            if (! is_array($record)) {
+                continue;
+            }
+
+            if ((bool) ($record['isWinner'] ?? false)) {
+                $wins++;
+
+                continue;
+            }
+
+            $losses++;
+        }
+
+        $total = $wins + $losses;
+        $winRate = $total > 0 ? round(($wins / $total) * 100, 1) : 0.0;
+
+        return [
+            'total' => $total,
+            'wins' => $wins,
+            'losses' => $losses,
+            'winRate' => $winRate,
+        ];
     }
 }

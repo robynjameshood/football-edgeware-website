@@ -115,6 +115,41 @@
     .results-empty-state p{margin:0;color:var(--results-muted)}
     .empty-state-kicker{display:inline-block;margin-bottom:10px;font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#0f766e}
 
+    .day-summary{
+        display:grid;
+        grid-template-columns:minmax(0, 1.4fr) minmax(0, 1fr);
+        gap:16px;
+        margin-bottom:18px;
+        padding:18px;
+        border:1px solid rgba(148,163,184,0.14);
+        border-radius:24px;
+        background:linear-gradient(135deg,rgba(15,23,42,0.98),rgba(15,118,110,0.92));
+        color:#f8fafc;
+        box-shadow:0 24px 50px rgba(15,23,42,0.18);
+    }
+    .day-summary-primary{display:flex;flex-direction:column;justify-content:center;gap:6px}
+    .day-summary-label{font-size:12px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:rgba(244,244,245,0.78)}
+    .day-summary-rate{font-size:clamp(2.2rem,4vw,3.4rem);line-height:1;font-weight:800}
+    .day-summary-caption{font-size:14px;line-height:1.5;color:rgba(241,245,249,0.82)}
+    .day-summary-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+    .day-summary-stat{
+        display:flex;
+        flex-direction:column;
+        justify-content:center;
+        gap:8px;
+        min-height:110px;
+        padding:16px;
+        border-radius:18px;
+        background:rgba(255,255,255,0.1);
+        border:1px solid rgba(255,255,255,0.12);
+        backdrop-filter:blur(8px);
+    }
+    .day-summary-stat.success{background:rgba(16,185,129,0.16)}
+    .day-summary-stat.danger{background:rgba(239,68,68,0.16)}
+    .day-summary-stat.neutral{background:rgba(255,255,255,0.08)}
+    .summary-stat-label{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:rgba(241,245,249,0.74)}
+    .summary-stat-value{font-size:1.8rem;line-height:1;font-weight:800;color:#ffffff}
+
     .results-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px}
     .result-card{
         position:relative;
@@ -250,6 +285,9 @@
 
     @media (max-width:640px){
         .results-page{padding:16px;border-radius:22px}
+        .day-summary{grid-template-columns:1fr;padding:16px}
+        .day-summary-stats{grid-template-columns:1fr}
+        .day-summary-stat{min-height:auto}
         .dates-strip{max-height:190px;overflow:auto;padding-right:4px}
         .result-card-head{grid-template-columns:1fr;justify-items:flex-start}
         .team-stack.align-right{text-align:left}

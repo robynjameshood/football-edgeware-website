@@ -44,4 +44,37 @@ class ResultsPageTest extends TestCase
         $response->assertOk();
         $response->assertJsonStructure(['selectedDate', 'html']);
     }
+
+    public function test_results_page_shows_half_specific_goal_labels(): void
+    {
+        $mock = Mockery::mock(ResultsApiClient::class);
+        $mock->shouldReceive('getByDate')
+            ->once()
+            ->andReturn([
+                [
+                    'fixtureId' => 1,
+                    'home' => 'Alpha FC',
+                    'away' => 'Beta United',
+                    'currentHalf' => '1H',
+                    'isWinner' => true,
+                    'percentage' => 65,
+                ],
+                [
+                    'fixtureId' => 2,
+                    'home' => 'Gamma FC',
+                    'away' => 'Delta Town',
+                    'currentHalf' => '2H',
+                    'isWinner' => false,
+                    'percentage' => 42,
+                ],
+            ]);
+
+        $this->app->instance(ResultsApiClient::class, $mock);
+
+        $response = $this->get('/results');
+
+        $response->assertOk();
+        $response->assertSee('First Half Goal');
+        $response->assertSee('Second Half Goal');
+    }
 }
