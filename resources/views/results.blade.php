@@ -5,9 +5,14 @@
 @section('meta_keywords', 'football results, win loss, daily fixtures, football edgeware')
 @section('og_image', asset('social/welcome-card.svg'))
 @section('twitter_image', asset('social/welcome-card.svg'))
+@section('canonical', route('results'))
 
 @section('content')
-<div class="results-page">
+<div
+    class="results-page"
+    data-results-url="{{ route('results') }}"
+    data-selected-date="{{ $selectedDate }}"
+>
     <div class="results-head">
         <div>
             <span class="results-kicker">Match Centre</span>
@@ -21,6 +26,7 @@
         @foreach ($availableDates as $date)
             <a
                 class="date-pill {{ $selectedDate === $date['value'] ? 'active' : '' }}"
+                data-date-value="{{ $date['value'] }}"
                 href="{{ route('results', ['date' => $date['value']]) }}"
             >
                 {{ $date['label'] }}
@@ -298,11 +304,27 @@
 
 <script>
     (function () {
+        const page = document.querySelector('.results-page');
         const refreshBtn = document.getElementById('refreshResults');
         const container = document.getElementById('resultsContainer');
+        const datePills = Array.from(document.querySelectorAll('.date-pill'));
 
-        if (!refreshBtn || !container) {
+        if (!page || !refreshBtn || !container) {
             return;
+        }
+
+        const resultsUrl = page.dataset.resultsUrl || window.location.pathname;
+
+        function getSelectedDate() {
+            return page.dataset.selectedDate || '';
+        }
+
+        function setSelectedDate(nextDate) {
+            page.dataset.selectedDate = nextDate;
+
+            datePills.forEach(function (pill) {
+                pill.classList.toggle('active', pill.dataset.dateValue === nextDate);
+            });
         }
 
         function renderSkeleton(count) {
@@ -313,14 +335,20 @@
             container.innerHTML = '<div class="results-grid">' + cards.join('') + '</div>';
         }
 
-        async function refreshResults() {
+        async function loadResults(dateValue) {
             refreshBtn.disabled = true;
             const originalLabel = refreshBtn.textContent;
             refreshBtn.textContent = 'Refreshing...';
             renderSkeleton(6);
 
             try {
-                const response = await fetch(window.location.href, {
+                const requestUrl = new URL(resultsUrl, window.location.origin);
+
+                if (dateValue) {
+                    requestUrl.searchParams.set('date', dateValue);
+                }
+
+                const response = await fetch(requestUrl.toString(), {
                     headers: {
                         'X-Requested-With': 'XMLHttpRequest',
                         'Accept': 'application/json'
@@ -333,6 +361,8 @@
 
                 const payload = await response.json();
                 container.innerHTML = payload.html || '<div class="notice">No data returned.</div>';
+                setSelectedDate(payload.selectedDate || dateValue || '');
+                window.history.replaceState({}, '', resultsUrl);
             } catch (error) {
                 container.innerHTML = '<div class="notice error">Unable to refresh results right now. Please try again.</div>';
             } finally {
@@ -341,7 +371,20 @@
             }
         }
 
-        refreshBtn.addEventListener('click', refreshResults);
+        refreshBtn.addEventListener('click', function () {
+            loadResults(getSelectedDate());
+        });
+
+        datePills.forEach(function (pill) {
+            pill.addEventListener('click', function (event) {
+                event.preventDefault();
+                loadResults(pill.dataset.dateValue || '');
+            });
+        });
+
+        if (window.location.pathname === resultsUrl.replace(window.location.origin, '') && window.location.search) {
+            window.history.replaceState({}, '', resultsUrl);
+        }
     })();
 </script>
 @endsection
