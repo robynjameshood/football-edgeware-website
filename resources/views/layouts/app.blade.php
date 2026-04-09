@@ -85,7 +85,7 @@
             </div>
         </header>
 
-        <main class="container main">
+        <main class="container main @yield('main_class')">
             @yield('content')
         </main>
 

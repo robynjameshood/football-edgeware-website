@@ -6,6 +6,7 @@
 @section('og_image', asset('social/welcome-card.svg'))
 @section('twitter_image', asset('social/welcome-card.svg'))
 @section('canonical', route('results'))
+@section('main_class', 'results-main')
 
 @section('content')
 <div
@@ -51,7 +52,7 @@
         --results-loss-soft:#fee2e2;
         --results-ink:#0f172a;
         --results-muted:#64748b;
-        max-width:1120px;
+        max-width:1280px;
         margin:0 auto;
         padding:20px;
         border:1px solid rgba(148,163,184,0.14);
@@ -156,7 +157,8 @@
     .summary-stat-label{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:rgba(241,245,249,0.74)}
     .summary-stat-value{font-size:1.8rem;line-height:1;font-weight:800;color:#ffffff}
 
-    .results-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px}
+    .results-main{max-width:1320px}
+    .results-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:18px}
     .result-card{
         position:relative;
         overflow:hidden;
@@ -227,6 +229,7 @@
         font-size:1.05rem;
         line-height:1.25;
         color:var(--results-ink);
+        text-wrap:balance;
         word-break:break-word;
     }
     .vs-pill{
