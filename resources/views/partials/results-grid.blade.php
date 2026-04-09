@@ -13,10 +13,13 @@
         @foreach ($records as $result)
             <article class="result-card {{ $result['isWinner'] ? 'winner' : 'loser' }}">
                 <header class="result-card-topline">
-                    <span class="fixture-chip">Fixture #{{ $result['fixtureId'] ?? 'N/A' }}</span>
-                    <span class="outcome {{ $result['isWinner'] ? 'win' : 'loss' }}">
-                        {{ $result['isWinner'] ? 'Win' : 'Loss' }}
-                    </span>
+                    <div class="outcome-pill {{ $result['isWinner'] ? 'win' : 'loss' }}">
+                        <span class="outcome-dot" aria-hidden="true"></span>
+                        <span class="outcome-copy">
+                            <strong>{{ $result['isWinner'] ? 'Edge landed' : 'Edge missed' }}</strong>
+                            <span>{{ $result['isWinner'] ? 'Positive result for this fixture' : 'This fixture finished below target' }}</span>
+                        </span>
+                    </div>
                 </header>
 
                 <div class="result-card-head">

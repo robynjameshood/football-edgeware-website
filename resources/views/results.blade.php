@@ -142,21 +142,35 @@
     .result-card-topline{
         display:flex;
         align-items:center;
-        justify-content:space-between;
+        justify-content:flex-start;
         gap:10px;
         margin-bottom:16px;
     }
-    .fixture-chip{
+    .outcome-pill{
         display:inline-flex;
         align-items:center;
-        border-radius:999px;
-        padding:7px 10px;
-        background:rgba(15,23,42,0.06);
-        color:var(--results-ink);
-        font-size:12px;
-        font-weight:700;
-        letter-spacing:.03em;
+        gap:12px;
+        min-width:min(100%, 260px);
+        padding:12px 14px;
+        border-radius:18px;
+        border:1px solid rgba(148,163,184,0.16);
+        background:rgba(255,255,255,0.84);
+        box-shadow:0 10px 24px rgba(15,23,42,0.06);
     }
+    .outcome-pill.win{background:linear-gradient(180deg,rgba(240,253,250,0.98),rgba(255,255,255,0.86));border-color:rgba(15,118,110,0.16)}
+    .outcome-pill.loss{background:linear-gradient(180deg,rgba(255,241,242,0.98),rgba(255,255,255,0.86));border-color:rgba(185,28,28,0.14)}
+    .outcome-dot{
+        flex:0 0 auto;
+        width:12px;
+        height:12px;
+        border-radius:999px;
+        box-shadow:0 0 0 5px rgba(15,23,42,0.04);
+    }
+    .outcome-pill.win .outcome-dot{background:#14b8a6;box-shadow:0 0 0 5px rgba(20,184,166,0.12)}
+    .outcome-pill.loss .outcome-dot{background:#ef4444;box-shadow:0 0 0 5px rgba(239,68,68,0.12)}
+    .outcome-copy{display:flex;flex-direction:column;gap:2px;min-width:0}
+    .outcome-copy strong{font-size:13px;line-height:1.2;color:var(--results-ink)}
+    .outcome-copy span{font-size:12px;line-height:1.35;color:var(--results-muted)}
 
     .result-card-head{
         display:grid;
@@ -224,10 +238,6 @@
         background:linear-gradient(90deg,#14b8a6,#0f766e);
         box-shadow:0 4px 12px rgba(20,184,166,0.26);
     }
-
-    .outcome{display:inline-flex;align-items:center;justify-content:center;padding:7px 12px;border-radius:999px;font-weight:800;font-size:12px;letter-spacing:.08em;text-transform:uppercase}
-    .outcome.win{background:var(--results-accent-soft);color:var(--results-accent)}
-    .outcome.loss{background:var(--results-loss-soft);color:var(--results-loss)}
 
     .result-skeleton{
         height:210px;
