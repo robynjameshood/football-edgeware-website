@@ -82,29 +82,58 @@ class ResultsController extends Controller
     {
         $wins = 0;
         $losses = 0;
+        $firstHalfWins = 0;
+        $firstHalfLosses = 0;
+        $secondHalfWins = 0;
+        $secondHalfLosses = 0;
 
         foreach ($records as $record) {
             if (! is_array($record)) {
                 continue;
             }
 
-            if ((bool) ($record['isWinner'] ?? false)) {
-                $wins++;
+            $isWinner = (bool) ($record['isWinner'] ?? false);
+            $currentHalf = (string) ($record['currentHalf'] ?? '');
 
-                continue;
+            if ($isWinner) {
+                $wins++;
+            } else {
+                $losses++;
             }
 
-            $losses++;
+            if ($currentHalf === '1H') {
+                if ($isWinner) {
+                    $firstHalfWins++;
+                } else {
+                    $firstHalfLosses++;
+                }
+            }
+
+            if ($currentHalf === '2H') {
+                if ($isWinner) {
+                    $secondHalfWins++;
+                } else {
+                    $secondHalfLosses++;
+                }
+            }
         }
 
         $total = $wins + $losses;
+        $firstHalfTotal = $firstHalfWins + $firstHalfLosses;
+        $secondHalfTotal = $secondHalfWins + $secondHalfLosses;
         $winRate = $total > 0 ? round(($wins / $total) * 100, 1) : 0.0;
+        $firstHalfWinRate = $firstHalfTotal > 0 ? round(($firstHalfWins / $firstHalfTotal) * 100, 1) : 0.0;
+        $secondHalfWinRate = $secondHalfTotal > 0 ? round(($secondHalfWins / $secondHalfTotal) * 100, 1) : 0.0;
 
         return [
             'total' => $total,
             'wins' => $wins,
             'losses' => $losses,
             'winRate' => $winRate,
+            'firstHalfTotal' => $firstHalfTotal,
+            'firstHalfWinRate' => $firstHalfWinRate,
+            'secondHalfTotal' => $secondHalfTotal,
+            'secondHalfWinRate' => $secondHalfWinRate,
         ];
     }
 }
