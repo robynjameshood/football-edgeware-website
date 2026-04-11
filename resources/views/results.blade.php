@@ -124,7 +124,7 @@
 
     .day-summary{
         display:grid;
-        grid-template-columns:minmax(0, 1.4fr) minmax(0, 1fr);
+        grid-template-columns:minmax(260px, 0.9fr) minmax(0, 1.55fr);
         gap:16px;
         margin-bottom:18px;
         padding:18px;
@@ -138,7 +138,7 @@
     .day-summary-label{font-size:12px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:rgba(244,244,245,0.78)}
     .day-summary-rate{font-size:clamp(2.2rem,4vw,3.4rem);line-height:1;font-weight:800}
     .day-summary-caption{font-size:14px;line-height:1.5;color:rgba(241,245,249,0.82)}
-    .day-summary-stats{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
+    .day-summary-stats{display:grid;grid-template-columns:repeat(5,minmax(110px,1fr));gap:12px}
     .day-summary-stat{
         display:flex;
         flex-direction:column;
@@ -302,6 +302,15 @@
         .team-stack.align-right{text-align:left}
         .vs-pill{width:auto;height:auto;padding:8px 12px}
         .result-stat-row{grid-template-columns:1fr}
+    }
+
+    @media (max-width:1100px){
+        .day-summary{grid-template-columns:1fr}
+        .day-summary-stats{grid-template-columns:repeat(3,minmax(0,1fr))}
+    }
+
+    @media (max-width:780px){
+        .day-summary-stats{grid-template-columns:repeat(2,minmax(0,1fr))}
     }
 </style>
 
