@@ -138,7 +138,7 @@
     .day-summary-label{font-size:12px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:rgba(244,244,245,0.78)}
     .day-summary-rate{font-size:clamp(2.2rem,4vw,3.4rem);line-height:1;font-weight:800}
     .day-summary-caption{font-size:14px;line-height:1.5;color:rgba(241,245,249,0.82)}
-    .day-summary-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+    .day-summary-stats{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
     .day-summary-stat{
         display:flex;
         flex-direction:column;
@@ -295,7 +295,7 @@
     @media (max-width:640px){
         .results-page{padding:16px;border-radius:22px}
         .day-summary{grid-template-columns:1fr;padding:16px}
-        .day-summary-stats{grid-template-columns:1fr}
+        .day-summary-stats{grid-template-columns:repeat(2,minmax(0,1fr))}
         .day-summary-stat{min-height:auto}
         .dates-strip{max-height:190px;overflow:auto;padding-right:4px}
         .result-card-head{grid-template-columns:1fr;justify-items:flex-start}

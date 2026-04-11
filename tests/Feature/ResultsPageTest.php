@@ -116,8 +116,11 @@ class ResultsPageTest extends TestCase
 
         $response->assertOk();
         $response->assertSee('Final day percentage', false);
-        $response->assertSee('1H: 50.0% (2)', false);
-        $response->assertSee('2H: 100.0% (1)', false);
-        $response->assertSee('50.0% / 100.0%', false);
+        $response->assertSee('First Half', false);
+        $response->assertSee('Second Half', false);
+        $response->assertSee('50.0%', false);
+        $response->assertSee('100.0%', false);
+        $response->assertSee('Fixtures', false);
+        $response->assertSee('3', false);
     }
 }

@@ -2,13 +2,17 @@
     <div class="day-summary-primary">
         <span class="day-summary-label">Final day percentage</span>
         <strong class="day-summary-rate">{{ number_format((float) ($summary['winRate'] ?? 0), 1) }}%</strong>
-        <span class="day-summary-caption">
-            Based on {{ $summary['total'] ?? 0 }} tracked fixtures for {{ \Illuminate\Support\Carbon::parse($selectedDate)->format('d/m/Y') }}.
-            1H: {{ number_format((float) ($summary['firstHalfWinRate'] ?? 0), 1) }}% ({{ $summary['firstHalfTotal'] ?? 0 }})
-            | 2H: {{ number_format((float) ($summary['secondHalfWinRate'] ?? 0), 1) }}% ({{ $summary['secondHalfTotal'] ?? 0 }})
-        </span>
+        <span class="day-summary-caption">Based on {{ $summary['total'] ?? 0 }} tracked fixtures for {{ \Illuminate\Support\Carbon::parse($selectedDate)->format('d/m/Y') }}</span>
     </div>
     <div class="day-summary-stats">
+        <div class="day-summary-stat neutral">
+            <span class="summary-stat-label">First Half</span>
+            <strong class="summary-stat-value">{{ number_format((float) ($summary['firstHalfWinRate'] ?? 0), 1) }}%</strong>
+        </div>
+        <div class="day-summary-stat neutral">
+            <span class="summary-stat-label">Second Half</span>
+            <strong class="summary-stat-value">{{ number_format((float) ($summary['secondHalfWinRate'] ?? 0), 1) }}%</strong>
+        </div>
         <div class="day-summary-stat success">
             <span class="summary-stat-label">Wins</span>
             <strong class="summary-stat-value">{{ $summary['wins'] ?? 0 }}</strong>
@@ -18,8 +22,8 @@
             <strong class="summary-stat-value">{{ $summary['losses'] ?? 0 }}</strong>
         </div>
         <div class="day-summary-stat neutral">
-            <span class="summary-stat-label">1H / 2H</span>
-            <strong class="summary-stat-value">{{ number_format((float) ($summary['firstHalfWinRate'] ?? 0), 1) }}% / {{ number_format((float) ($summary['secondHalfWinRate'] ?? 0), 1) }}%</strong>
+            <span class="summary-stat-label">Fixtures</span>
+            <strong class="summary-stat-value">{{ $summary['total'] ?? 0 }}</strong>
         </div>
     </div>
 </section>
