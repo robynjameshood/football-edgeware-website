@@ -76,6 +76,8 @@ class ResultsPageTest extends TestCase
         $response->assertOk();
         $response->assertSee('First Half Goal');
         $response->assertSee('Second Half Goal');
+        $response->assertSee('First Half List');
+        $response->assertSee('Second Half List');
     }
 
     public function test_results_page_shows_first_and_second_half_final_day_percentages(): void

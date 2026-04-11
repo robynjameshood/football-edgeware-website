@@ -158,6 +158,52 @@
     .summary-stat-value{font-size:1.8rem;line-height:1;font-weight:800;color:#ffffff}
 
     .results-main{max-width:1320px}
+    .results-sections{display:flex;flex-direction:column;gap:18px}
+    .results-group{
+        border:1px solid rgba(148,163,184,0.16);
+        border-radius:24px;
+        background:rgba(255,255,255,0.72);
+        box-shadow:0 18px 40px rgba(15,23,42,0.06);
+        overflow:hidden;
+    }
+    .results-group-summary{
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        gap:12px;
+        padding:18px 20px;
+        cursor:pointer;
+        list-style:none;
+        font-size:1rem;
+        font-weight:800;
+        color:var(--results-ink);
+        background:linear-gradient(180deg,rgba(240,253,250,0.92),rgba(255,255,255,0.9));
+    }
+    .results-group-summary::-webkit-details-marker{display:none}
+    .results-group-summary::after{
+        content:'+';
+        flex:0 0 auto;
+        display:inline-flex;
+        align-items:center;
+        justify-content:center;
+        width:28px;
+        height:28px;
+        border-radius:999px;
+        background:rgba(15,118,110,0.1);
+        color:var(--results-accent);
+        font-size:1.2rem;
+        line-height:1;
+    }
+    .results-group[open] .results-group-summary::after{content:'-'}
+    .results-group-count{
+        margin-left:auto;
+        padding-right:6px;
+        color:var(--results-muted);
+        font-size:.875rem;
+        font-weight:700;
+    }
+    .results-group .results-grid{padding:0 18px 18px}
+    .results-group-empty{margin:0 18px 18px}
     .results-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:18px}
     .result-card{
         position:relative;
@@ -297,6 +343,10 @@
         .day-summary{grid-template-columns:1fr;padding:16px}
         .day-summary-stats{grid-template-columns:repeat(2,minmax(0,1fr))}
         .day-summary-stat{min-height:auto}
+        .results-group-summary{padding:16px;align-items:flex-start;flex-wrap:wrap}
+        .results-group-count{margin-left:0;padding-right:0}
+        .results-group .results-grid{padding:0 16px 16px}
+        .results-group-empty{margin:0 16px 16px}
         .dates-strip{max-height:190px;overflow:auto;padding-right:4px}
         .result-card-head{grid-template-columns:1fr;justify-items:flex-start}
         .team-stack.align-right{text-align:left}
