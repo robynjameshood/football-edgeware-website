@@ -66,7 +66,7 @@ class ResultsController extends Controller
             'records' => $records,
             'summary' => $this->buildSummary($records),
             'fetchError' => $fetchError,
-                'isAdmin' => session('is_admin', false),
+            'isAdmin' => session('is_admin', false),
         ];
 
         if ($request->ajax() || $request->wantsJson()) {
@@ -77,7 +77,6 @@ class ResultsController extends Controller
         }
 
         return view('results', $payload);
-        }
     }
 
     private function buildSummary(array $records): array
