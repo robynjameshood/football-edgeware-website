@@ -40,21 +40,29 @@
             'selectedDate' => $selectedDate,
             'fetchError' => $fetchError,
         ])
-            @if(session('is_admin'))
-                <div class="admin-lists" style="margin-top:32px;">
-                    <h2>Active First Half List</h2>
-                    <ul class="admin-list">
-                        <li>Example First Half Item 1</li>
-                        <li>Example First Half Item 2</li>
-                    </ul>
-                    <h2>Active Second Half List</h2>
-                    <ul class="admin-list">
-                        <li>Example Second Half Item 1</li>
-                        <li>Example Second Half Item 2</li>
-                    </ul>
-                </div>
-            @endif
     </div>
+
+    @if(session('is_admin'))
+        <section class="admin-lists" aria-label="Administrator active lists">
+            <article class="admin-list-card">
+                <span class="admin-list-kicker">Administrator</span>
+                <h2>Active First Half List</h2>
+                <ul class="admin-list">
+                    <li>Example First Half Item 1</li>
+                    <li>Example First Half Item 2</li>
+                </ul>
+            </article>
+
+            <article class="admin-list-card">
+                <span class="admin-list-kicker">Administrator</span>
+                <h2>Active Second Half List</h2>
+                <ul class="admin-list">
+                    <li>Example Second Half Item 1</li>
+                    <li>Example Second Half Item 2</li>
+                </ul>
+            </article>
+        </section>
+    @endif
 </div>
 
 <style>
@@ -76,6 +84,7 @@
         box-shadow:0 28px 80px rgba(15,23,42,0.08);
     }
     .results-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+    .results-head > div{min-width:0}
     .results-kicker{
         display:inline-block;
         margin-bottom:10px;
@@ -92,6 +101,9 @@
     .results-page .lead{max-width:700px;color:var(--results-muted);margin:0 0 20px;font-size:1rem}
 
     .refresh-btn{
+        display:inline-flex;
+        align-items:center;
+        justify-content:center;
         border:1px solid rgba(15,118,110,0.18);
         background:linear-gradient(180deg,#ffffff,#ecfeff);
         color:var(--results-accent);
@@ -223,7 +235,7 @@
     }
     .results-group .results-grid{padding:0 18px 18px}
     .results-group-empty{margin:0 18px 18px}
-    .results-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:18px}
+    .results-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:18px}
     .result-card{
         position:relative;
         overflow:hidden;
@@ -352,6 +364,40 @@
         animation:resultShimmer 1.1s linear infinite;
     }
 
+    .admin-lists{
+        display:grid;
+        grid-template-columns:repeat(2,minmax(0,1fr));
+        gap:18px;
+        margin-top:32px;
+    }
+    .admin-list-card{
+        padding:20px;
+        border-radius:24px;
+        border:1px solid rgba(148,163,184,0.16);
+        background:linear-gradient(180deg,rgba(255,255,255,0.98),rgba(248,250,252,0.95));
+        box-shadow:0 18px 40px rgba(15,23,42,0.06);
+    }
+    .admin-list-kicker{
+        display:inline-block;
+        margin-bottom:10px;
+        font-size:11px;
+        font-weight:800;
+        letter-spacing:.14em;
+        text-transform:uppercase;
+        color:var(--results-accent);
+    }
+    .admin-list-card h2{
+        margin:0 0 14px;
+        font-size:1.15rem;
+        color:var(--results-ink);
+    }
+    .admin-list{
+        margin:0;
+        padding-left:18px;
+        color:#334155;
+    }
+    .admin-list li + li{margin-top:8px}
+
     @keyframes resultShimmer {
         0% { background-position: 200% 0; }
         100% { background-position: -200% 0; }
@@ -359,6 +405,7 @@
 
     @media (max-width:640px){
         .results-page{padding:16px;border-radius:22px}
+        .results-head{align-items:stretch}
         .day-summary{grid-template-columns:1fr;padding:16px}
         .day-summary-stats{grid-template-columns:repeat(2,minmax(0,1fr))}
         .day-summary-stat{min-height:auto}
@@ -367,10 +414,15 @@
         .results-group .results-grid{padding:0 16px 16px}
         .results-group-empty{margin:0 16px 16px}
         .results-date-picker{max-width:none}
+        .refresh-btn{width:100%}
+        .result-card{padding:16px}
         .result-card-head{grid-template-columns:1fr;justify-items:flex-start}
         .team-stack.align-right{text-align:left}
         .vs-pill{width:auto;height:auto;padding:8px 12px}
         .result-stat-row{grid-template-columns:1fr}
+        .outcome-pill{width:100%;justify-content:center}
+        .admin-lists{grid-template-columns:1fr;gap:16px}
+        .admin-list-card{padding:18px}
     }
 
     @media (max-width:1100px){

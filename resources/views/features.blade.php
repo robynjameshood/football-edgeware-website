@@ -50,7 +50,7 @@
     @media (max-width:640px) {
         .features h1, .features .lead { text-align: center; }
         .cards { grid-template-columns: 1fr; gap:14px; }
-        .card { padding:16px; margin:0 auto; max-width:96%; }
+        .card { width:100%; max-width:none; padding:16px; margin:0; }
     }
 </style>
 @endsection
