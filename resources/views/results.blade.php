@@ -41,6 +41,20 @@
             'selectedDate' => $selectedDate,
             'fetchError' => $fetchError,
         ])
+            @if(session('is_admin'))
+                <div class="admin-lists" style="margin-top:32px;">
+                    <h2>Active First Half List</h2>
+                    <ul class="admin-list">
+                        <li>Example First Half Item 1</li>
+                        <li>Example First Half Item 2</li>
+                    </ul>
+                    <h2>Active Second Half List</h2>
+                    <ul class="admin-list">
+                        <li>Example Second Half Item 1</li>
+                        <li>Example Second Half Item 2</li>
+                    </ul>
+                </div>
+            @endif
     </div>
 </div>
 

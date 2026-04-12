@@ -6,6 +6,7 @@ use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ResultsController;
+use App\Http\Controllers\AuthController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -20,6 +21,11 @@ Route::get('/pricing', function () {
 })->name('pricing');
 
 Route::get('/results', [ResultsController::class, 'index'])->name('results');
+
+// Auth routes
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [AuthController::class, 'login'])->name('login.post');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // Dynamic sitemap.xml for basic SEO (lists main public pages)
 Route::get('/sitemap.xml', function () {
