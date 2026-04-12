@@ -23,16 +23,15 @@
     </div>
     <p class="lead">Select a date from 26/03/2026 onward to view win/loss outcomes for that day.</p>
 
-    <div class="dates-strip" aria-label="Available result dates">
-        @foreach ($availableDates as $date)
-            <a
-                class="date-pill {{ $selectedDate === $date['value'] ? 'active' : '' }}"
-                data-date-value="{{ $date['value'] }}"
-                href="{{ route('results', ['date' => $date['value']]) }}"
-            >
-                {{ $date['label'] }}
-            </a>
-        @endforeach
+    <div class="results-date-picker">
+        <label class="results-date-label" for="resultsDateSelect">Select date</label>
+        <select id="resultsDateSelect" class="results-date-select" aria-label="Available result dates">
+            @foreach ($availableDates as $date)
+                <option value="{{ $date['value'] }}" {{ $selectedDate === $date['value'] ? 'selected' : '' }}>
+                    {{ $date['label'] }}
+                </option>
+            @endforeach
+        </select>
     </div>
 
     <div id="resultsContainer">
@@ -106,22 +105,28 @@
     .refresh-btn:hover{background:#ffffff;transform:translateY(-1px);box-shadow:0 16px 30px rgba(15,118,110,0.16)}
     .refresh-btn[disabled]{opacity:.6;cursor:not-allowed}
 
-    .dates-strip{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:24px}
-    .date-pill{
-        display:inline-block;
-        text-decoration:none;
-        color:#1f2937;
-        background:rgba(255,255,255,0.82);
-        border:1px solid rgba(148,163,184,0.18);
-        padding:10px 14px;
-        border-radius:999px;
-        font-size:14px;
-        backdrop-filter:blur(8px);
+    .results-date-picker{display:flex;flex-direction:column;gap:8px;max-width:320px;margin-bottom:24px}
+    .results-date-label{font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--results-muted)}
+    .results-date-select{
+        width:100%;
+        appearance:none;
+        padding:14px 42px 14px 16px;
+        border-radius:16px;
+        border:1px solid rgba(148,163,184,0.22);
+        background:
+            linear-gradient(180deg,rgba(255,255,255,0.96),rgba(240,253,250,0.92)),
+            linear-gradient(45deg,transparent 50%,#0f766e 50%),
+            linear-gradient(135deg,#0f766e 50%,transparent 50%);
+        background-repeat:no-repeat;
+        background-position:0 0, calc(100% - 20px) calc(50% - 2px), calc(100% - 14px) calc(50% - 2px);
+        background-size:auto, 6px 6px, 6px 6px;
+        color:var(--results-ink);
+        font-size:15px;
+        font-weight:600;
         box-shadow:0 10px 24px rgba(15,23,42,0.05);
-        transition:all .15s ease;
+        cursor:pointer;
     }
-    .date-pill:hover{background:#f0fdfa;border-color:rgba(15,118,110,0.28);color:var(--results-accent)}
-    .date-pill.active{background:linear-gradient(135deg,#0f766e,#0f172a);border-color:#0f766e;color:#ffffff;box-shadow:0 14px 30px rgba(15,118,110,0.28)}
+    .results-date-select:focus{outline:none;border-color:rgba(15,118,110,0.45);box-shadow:0 0 0 4px rgba(20,184,166,0.12)}
 
     .notice{
         background:rgba(255,255,255,0.9);
@@ -361,7 +366,7 @@
         .results-group-count{margin-left:0;padding-right:0}
         .results-group .results-grid{padding:0 16px 16px}
         .results-group-empty{margin:0 16px 16px}
-        .dates-strip{max-height:190px;overflow:auto;padding-right:4px}
+        .results-date-picker{max-width:none}
         .result-card-head{grid-template-columns:1fr;justify-items:flex-start}
         .team-stack.align-right{text-align:left}
         .vs-pill{width:auto;height:auto;padding:8px 12px}
@@ -383,9 +388,9 @@
         const page = document.querySelector('.results-page');
         const refreshBtn = document.getElementById('refreshResults');
         const container = document.getElementById('resultsContainer');
-        const datePills = Array.from(document.querySelectorAll('.date-pill'));
+        const dateSelect = document.getElementById('resultsDateSelect');
 
-        if (!page || !refreshBtn || !container) {
+        if (!page || !refreshBtn || !container || !dateSelect) {
             return;
         }
 
@@ -397,10 +402,7 @@
 
         function setSelectedDate(nextDate) {
             page.dataset.selectedDate = nextDate;
-
-            datePills.forEach(function (pill) {
-                pill.classList.toggle('active', pill.dataset.dateValue === nextDate);
-            });
+            dateSelect.value = nextDate;
         }
 
         function renderSkeleton(count) {
@@ -451,11 +453,8 @@
             loadResults(getSelectedDate());
         });
 
-        datePills.forEach(function (pill) {
-            pill.addEventListener('click', function (event) {
-                event.preventDefault();
-                loadResults(pill.dataset.dateValue || '');
-            });
+        dateSelect.addEventListener('change', function () {
+            loadResults(dateSelect.value || '');
         });
 
         if (window.location.pathname === resultsUrl.replace(window.location.origin, '') && window.location.search) {
