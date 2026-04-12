@@ -5,7 +5,6 @@
 
 @section('content')
 <div class="login-page">
-    <h1>Admin Login</h1>
     <p class="login-subheading">Administrator Login</p>
     @if(session('error'))
         <div class="notice error">{{ session('error') }}</div>
@@ -25,8 +24,7 @@
 </div>
 <style>
 .login-page{max-width:400px;margin:60px auto;padding:32px;border-radius:18px;background:#fff;box-shadow:0 8px 32px rgba(15,23,42,0.12)}
-.login-page h1{margin-bottom:24px;font-size:2rem;text-align:center}
-.login-subheading{margin:-12px 0 24px;text-align:center;color:#475569;font-size:1rem;font-weight:600}
+.login-subheading{margin:0 0 24px;text-align:center;color:#475569;font-size:1rem;font-weight:600}
 .form-group{margin-bottom:18px}
 label{display:block;margin-bottom:6px;font-weight:700;color:#0f172a}
 input[type="email"],input[type="password"]{width:100%;padding:10px 12px;border-radius:8px;border:1px solid #cbd5e1;font-size:1rem}
